@@ -1,0 +1,6 @@
+{
+  "name": "SiSGO (SafeONG)",
+  "description": "Sistema integrado para gestão segura de ONGs com autenticação RBAC, dashboard financeiro, controle de doações, alertas de segurança e auditoria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

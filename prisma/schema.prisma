@@ -1,0 +1,74 @@
+// Prisma Schema para SiSGO (SafeONG)
+// Documentação: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 1. Tabela de Usuários com RBAC (ADM, Financeiro, Atendente)
+model Usuario {
+  id        String   @id @default(uuid())
+  nome      String
+  login     String   @unique
+  senhaHash String
+  role      String   @default("Atendente") // "ADM" | "Financeiro" | "Atendente"
+  status    String   @default("ATIVO")     // "ATIVO" | "INATIVO" | "BLOQUEADO"
+  createdAt DateTime @default(now())
+
+  // Relacionamentos
+  doacoes Doacao[]
+  logs    LogSistema[]
+
+  @@map("usuarios")
+}
+
+// 2. Tabela de Doações recebidas pela ONG
+model Doacao {
+  id             String   @id @default(uuid())
+  valor          Float
+  formaPagamento String   // "PIX" | "BOLETO" | "CARTAO_CREDITO" | "TRANSFERENCIA" | "DINHEIRO"
+  status         String   @default("CONCLUIDA") // "PENDENTE" | "CONCLUIDA" | "ESTORNADA" | "CANCELADA"
+  dataHora       DateTime @default(now())
+  
+  usuarioId      String?
+  usuario        Usuario? @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+
+  // Relacionamento com alertas disparados pela doação (ex: valor anômalo)
+  alertas        Alerta[]
+
+  @@map("doacoes")
+}
+
+// 3. Tabela de Logs de Auditoria do Sistema
+model LogSistema {
+  id        String   @id @default(uuid())
+  usuarioId String?
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+  acao      String   // Ex: "LOGIN", "CADASTRO_DOACAO", "ALTERACAO_PERFIL"
+  ip        String
+  userAgent String
+  risco     String   @default("BAIXO") // "BAIXO" | "MEDIO" | "ALTO" | "CRITICO"
+  timestamp DateTime @default(now())
+
+  @@map("logs_sistema")
+}
+
+// 4. Tabela de Alertas Operacionais e de Segurança
+model Alerta {
+  id          String   @id @default(uuid())
+  titulo      String
+  criticidade String   @default("MEDIA") // "BAIXA" | "MEDIA" | "ALTA" | "CRITICA"
+  lido        Boolean  @default(false)
+  
+  doacaoId    String?
+  doacao      Doacao?  @relation(fields: [doacaoId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+
+  @@map("alertas")
+}
