@@ -22,11 +22,13 @@ async function startServer(): Promise<void> {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // Health check direto
+  app.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'ok' });
+  });
+
   // Rotas de API registradas PRIMEIRO
   app.use('/api', apiRouter);
-
-  // Inicializa dados do banco SQLite se vazio
-  await seedInitialData();
 
   // Integração com Vite para servir a interface ou estáticos
   if (process.env.NODE_ENV !== 'production') {
@@ -47,6 +49,11 @@ async function startServer(): Promise<void> {
     console.log(`🚀 Servidor SiSGO (SafeONG) em execução em http://0.0.0.0:${PORT}`);
     console.log(`📦 Banco de dados SQLite conectado em: prisma/dev.db`);
     console.log(`🔒 Autenticação JWT via Cookie httpOnly ativo`);
+
+    // Inicializa dados do banco SQLite de forma assíncrona sem bloquear o bind da porta
+    seedInitialData().catch((err) => {
+      console.error('Erro não-bloqueante ao inicializar dados do seed:', err);
+    });
   });
 }
 

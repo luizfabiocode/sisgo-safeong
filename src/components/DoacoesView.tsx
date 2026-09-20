@@ -136,11 +136,11 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
       {/* Top Header com Título e Botão de Ação */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-            <HeartHandshake className="h-6 w-6 text-emerald-400" />
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <HeartHandshake className="h-6 w-6 text-[#00A8FF]" />
             Gestão de Doações
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Registro contábil de entradas financeiras e rastreabilidade por operador.
           </p>
         </div>
@@ -149,15 +149,15 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
           <button
             onClick={onRefresh}
             disabled={loading}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
+            className="p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer shadow-xs"
             title="Atualizar dados"
           >
-            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin text-emerald-400' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin text-[#00A8FF]' : ''}`} />
           </button>
 
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 text-xs font-medium transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-medium transition-all cursor-pointer shadow-xs"
             title="Exportar dados filtrados em CSV"
           >
             <Download className="h-4 w-4" />
@@ -167,7 +167,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
           <button
             id="btn-open-donation-modal"
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A8FF] hover:bg-[#0093e0] text-white text-xs font-bold shadow-md shadow-[#00A8FF]/25 transition-all cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             Registrar Doação
@@ -176,10 +176,10 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
       </div>
 
       {/* Barra de Filtros e Busca */}
-      <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800/80 grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+      <div className="p-4 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 grid grid-cols-1 sm:grid-cols-12 gap-3 items-center shadow-xs transition-colors">
         {/* Input de Busca */}
         <div className="sm:col-span-6 relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
             <Search className="h-4 w-4" />
           </div>
           <input
@@ -188,7 +188,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar por ID, operador ou método..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#00A8FF]"
           />
         </div>
 
@@ -199,7 +199,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               id="select-filter-status"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full py-2 px-3 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 appearance-none cursor-pointer"
+              className="w-full py-2 px-3 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-[#00A8FF] appearance-none cursor-pointer"
             >
               <option value="TODOS">Todos os Status</option>
               <option value="CONCLUIDA">Concluídas</option>
@@ -207,7 +207,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               <option value="ESTORNADA">Estornadas</option>
               <option value="CANCELADA">Canceladas</option>
             </select>
-            <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-500">
+            <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
               <Filter className="h-3.5 w-3.5" />
             </div>
           </div>
@@ -220,7 +220,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               id="select-filter-pagamento"
               value={filterPagamento}
               onChange={(e) => setFilterPagamento(e.target.value)}
-              className="w-full py-2 px-3 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 appearance-none cursor-pointer"
+              className="w-full py-2 px-3 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-[#00A8FF] appearance-none cursor-pointer"
             >
               <option value="TODOS">Todas as Formas</option>
               <option value="PIX">PIX</option>
@@ -229,7 +229,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               <option value="TRANSFERENCIA">Transferência</option>
               <option value="DINHEIRO">Dinheiro</option>
             </select>
-            <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-500">
+            <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
               <Filter className="h-3.5 w-3.5" />
             </div>
           </div>
@@ -237,11 +237,11 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
       </div>
 
       {/* Tabela de Doações */}
-      <div className="bg-slate-900/80 border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-xs transition-colors">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/50 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
                 <th className="py-3 px-4">Valor</th>
                 <th className="py-3 px-4">Forma de Pagamento</th>
                 <th className="py-3 px-4">Status</th>
@@ -250,7 +250,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                 <th className="py-3 px-4">Alertas de Auditoria</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {filteredDoacoes.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-slate-500">
@@ -259,22 +259,22 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                 </tr>
               ) : (
                 filteredDoacoes.map((d) => (
-                  <tr key={d.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={d.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-100 text-sm">
+                        <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">
                           {formatCurrency(d.valor)}
                         </span>
                         {d.valor >= 5000 && (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30">
                             ALTO VALOR
                           </span>
                         )}
                       </div>
                     </td>
 
-                    <td className="py-3.5 px-4 text-slate-300">
-                      <span className="px-2 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 text-slate-200 font-mono text-[11px]">
+                    <td className="py-3.5 px-4 text-slate-600 dark:text-slate-300">
+                      <span className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-200 font-mono text-[11px]">
                         {d.formaPagamento}
                       </span>
                     </td>
@@ -283,16 +283,16 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                       <span
                         className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
                           d.status === 'CONCLUIDA'
-                            ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                            ? 'bg-[#2EC4B6]/15 text-[#168a7f] dark:text-[#2EC4B6] border-[#2EC4B6]/30'
                             : d.status === 'PENDENTE'
-                            ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                            : 'bg-rose-500/15 text-rose-400 border-rose-500/30'
+                            ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                            : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
                         }`}
                       >
                         <span
                           className={`w-1.5 h-1.5 rounded-full ${
                             d.status === 'CONCLUIDA'
-                              ? 'bg-emerald-400'
+                              ? 'bg-[#2EC4B6]'
                               : d.status === 'PENDENTE'
                               ? 'bg-amber-400'
                               : 'bg-rose-400'
@@ -302,9 +302,9 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                       </span>
                     </td>
 
-                    <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                    <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 text-[11px]">
                       <div className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3 text-slate-500" />
+                        <Calendar className="h-3 w-3 text-slate-400" />
                         {formatDate(d.dataHora)}
                       </div>
                     </td>
@@ -312,7 +312,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                     <td className="py-3.5 px-4">
                       {d.usuario ? (
                         <div>
-                          <div className="text-slate-200 font-medium">{d.usuario.nome}</div>
+                          <div className="text-slate-800 dark:text-slate-200 font-medium">{d.usuario.nome}</div>
                           <div className="text-[10px] text-slate-500 font-mono">
                             @{d.usuario.login} ({d.usuario.role})
                           </div>
@@ -330,8 +330,8 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                               key={al.id}
                               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${
                                 al.lido
-                                  ? 'bg-slate-800 text-slate-400 line-through'
-                                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                                  ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 line-through'
+                                  : 'bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30'
                               }`}
                             >
                               <AlertTriangle className="h-3 w-3" />
@@ -341,7 +341,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                         </div>
                       ) : (
                         <span className="text-slate-500 flex items-center gap-1 text-[11px]">
-                          <CheckCircle2 className="h-3 w-3 text-emerald-500/50" />
+                          <CheckCircle2 className="h-3 w-3 text-[#2EC4B6]" />
                           Conforme
                         </span>
                       )}
@@ -356,27 +356,27 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
 
       {/* Modal de Registro de Nova Doação */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-2xl space-y-5 transition-colors">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <div className="w-8 h-8 rounded-lg bg-[#00A8FF]/10 border border-[#00A8FF]/20 flex items-center justify-center text-[#00A8FF]">
                   <Plus className="h-5 w-5" />
                 </div>
-                <h3 className="text-base font-bold text-white tracking-tight">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
                   Registrar Nova Doação
                 </h3>
               </div>
               <button
                 onClick={handleClose}
-                className="text-slate-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer"
+                className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg transition-colors cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {modalError && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-300 text-xs">
                 {modalError}
               </div>
             )}
@@ -386,13 +386,13 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               <div className="space-y-1.5">
                 <label
                   htmlFor="input-modal-valor"
-                  className="block text-xs font-semibold text-slate-300"
+                  className="block text-xs font-semibold text-slate-700 dark:text-slate-300"
                 >
                   Valor da Doação (R$) *
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500 font-semibold">
-                    <DollarSign className="h-4 w-4 text-emerald-400" />
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 font-semibold">
+                    <DollarSign className="h-4 w-4 text-[#00A8FF]" />
                   </div>
                   <input
                     id="input-modal-valor"
@@ -403,14 +403,14 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}
                     placeholder="Ex: 250.00"
-                    className="w-full pl-10 pr-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#00A8FF]/50"
                   />
                 </div>
               </div>
 
               {/* Botões Rápidos de Valor */}
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[11px] text-slate-400">Valores rápidos:</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">Valores rápidos:</span>
                 {[50, 150, 500, 2000, 5500, 10000].map((v) => (
                   <button
                     key={v}
@@ -418,8 +418,8 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                     onClick={() => setValor(v.toFixed(2))}
                     className={`px-2 py-0.5 rounded text-[11px] font-mono border transition-all cursor-pointer ${
                       numValor === v
-                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-bold'
-                        : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                        ? 'bg-[#00A8FF]/15 text-[#0072ad] dark:text-[#00A8FF] border-[#00A8FF]/40 font-bold'
+                        : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     R$ {v}
@@ -429,8 +429,8 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
 
               {/* Aviso dinâmico de Alerta do Backend */}
               {willTriggerAlert && (
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2">
-                  <AlertTriangle className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs flex items-start gap-2">
+                  <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold block">Gatilho de Segurança Ativo:</span>
                     <span>
@@ -442,8 +442,8 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               )}
 
               {willTriggerPendingAlert && !willTriggerAlert && (
-                <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs flex items-start gap-2">
-                  <AlertTriangle className="h-4 w-4 text-sky-400 flex-shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-[#00A8FF]/10 border border-[#00A8FF]/30 text-[#0072ad] dark:text-[#00A8FF] text-xs flex items-start gap-2">
+                  <AlertTriangle className="h-4 w-4 text-[#00A8FF] flex-shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold block">Monitoramento de Pendência:</span>
                     <span>
@@ -457,7 +457,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               <div className="space-y-1.5">
                 <label
                   htmlFor="select-modal-forma"
-                  className="block text-xs font-semibold text-slate-300"
+                  className="block text-xs font-semibold text-slate-700 dark:text-slate-300"
                 >
                   Forma de Pagamento *
                 </label>
@@ -465,7 +465,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                   id="select-modal-forma"
                   value={formaPagamento}
                   onChange={(e) => setFormaPagamento(e.target.value as FormaPagamento)}
-                  className="w-full py-2.5 px-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full py-2.5 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#00A8FF]/50 cursor-pointer"
                 >
                   <option value="PIX">PIX (Instantâneo)</option>
                   <option value="BOLETO">Boleto Bancário</option>
@@ -479,7 +479,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               <div className="space-y-1.5">
                 <label
                   htmlFor="select-modal-status"
-                  className="block text-xs font-semibold text-slate-300"
+                  className="block text-xs font-semibold text-slate-700 dark:text-slate-300"
                 >
                   Status da Operação *
                 </label>
@@ -487,7 +487,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                   id="select-modal-status"
                   value={status}
                   onChange={(e) => setStatus(e.target.value as StatusDoacao)}
-                  className="w-full py-2.5 px-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full py-2.5 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#00A8FF]/50 cursor-pointer"
                 >
                   <option value="CONCLUIDA">Concluída (Recurso Confirmado)</option>
                   <option value="PENDENTE">Pendente (Aguardando Compensação)</option>
@@ -497,11 +497,11 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
               </div>
 
               {/* Rodapé do Modal */}
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
                 >
                   Cancelar
                 </button>
@@ -510,7 +510,7 @@ export const DoacoesView: React.FC<DoacoesViewProps> = ({
                   id="btn-confirm-new-donation"
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold shadow-lg shadow-emerald-500/20 transition-all cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl bg-[#00A8FF] hover:bg-[#0093e0] text-white text-xs font-bold shadow-md shadow-[#00A8FF]/25 transition-all cursor-pointer disabled:opacity-50"
                 >
                   {submitting ? 'Gravando no Prisma...' : 'Registrar Doação'}
                 </button>

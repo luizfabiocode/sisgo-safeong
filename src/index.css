@@ -1,1 +1,34 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-cyan-primary: #00a8ff;
+  --color-cyan-hover: #0093e0;
+  --color-leaf-green: #2ec4b6;
+  --color-leaf-hover: #26ab9f;
+}
+
+:root {
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --color-primary: #00a8ff;
+  --color-success: #2ec4b6;
+}
+
+html.dark {
+  --bg-app: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+}
+
+body {
+  margin: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+

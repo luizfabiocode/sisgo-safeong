@@ -20,6 +20,7 @@ import {
   StatusDoacao,
   CriticidadeAlerta,
   UserStatus,
+  ThemeMode,
 } from './types';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
 
@@ -28,7 +29,30 @@ export function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [initialLoading, setInitialLoading] = useState(true);
 
+  // Tema Claro / Escuro (Persistido no LocalStorage)
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    const saved = localStorage.getItem('sisgo-theme');
+    return saved === 'light' || saved === 'dark' ? saved : 'dark';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('sisgo-theme', theme);
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   // Data states
+
   const [doacoes, setDoacoes] = useState<DoacaoItem[]>([]);
   const [stats, setStats] = useState<EstatisticasDoacoes | null>(null);
   const [alertas, setAlertas] = useState<AlertaItem[]>([]);
@@ -233,9 +257,9 @@ export function App() {
 
   if (initialLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-300">
-        <div className="w-12 h-12 border-3 border-emerald-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <span className="text-sm font-semibold tracking-wide text-white">
+      <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0F172A] flex flex-col items-center justify-center p-4 text-slate-700 dark:text-slate-300 transition-colors">
+        <div className="w-12 h-12 border-3 border-[#00A8FF] border-t-transparent rounded-full animate-spin mb-4" />
+        <span className="text-sm font-semibold tracking-wide text-slate-900 dark:text-white">
           Iniciando SiSGO (SafeONG)...
         </span>
         <span className="text-xs text-slate-500 mt-1">Conectando ao backend e Prisma SQLite</span>
@@ -244,26 +268,26 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-slate-950 font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 dark:bg-[#0F172A] dark:text-slate-100 flex flex-col selection:bg-[#00A8FF] selection:text-white font-sans transition-colors duration-200">
       {/* Toast Notification Flutuante */}
       {toast && (
         <div
           id="toast-notification"
           className={`fixed bottom-5 right-5 z-50 p-4 rounded-xl shadow-2xl flex items-center gap-3 border text-xs font-semibold animate-in slide-in-from-bottom-5 duration-200 max-w-md ${
             toast.tipo === 'sucesso'
-              ? 'bg-slate-900 border-emerald-500/40 text-emerald-300'
+              ? 'bg-white dark:bg-slate-900 border-[#2EC4B6]/40 text-[#199d91] dark:text-[#2EC4B6]'
               : toast.tipo === 'erro'
-              ? 'bg-slate-900 border-rose-500/40 text-rose-300'
-              : 'bg-slate-900 border-sky-500/40 text-sky-300'
+              ? 'bg-white dark:bg-slate-900 border-rose-500/40 text-rose-600 dark:text-rose-300'
+              : 'bg-white dark:bg-slate-900 border-[#00A8FF]/40 text-[#0082c7] dark:text-[#00A8FF]'
           }`}
         >
-          {toast.tipo === 'sucesso' && <CheckCircle2 className="h-4 w-4 text-emerald-400 flex-shrink-0" />}
-          {toast.tipo === 'erro' && <AlertCircle className="h-4 w-4 text-rose-400 flex-shrink-0" />}
-          {toast.tipo === 'info' && <Info className="h-4 w-4 text-sky-400 flex-shrink-0" />}
+          {toast.tipo === 'sucesso' && <CheckCircle2 className="h-4 w-4 text-[#2EC4B6] flex-shrink-0" />}
+          {toast.tipo === 'erro' && <AlertCircle className="h-4 w-4 text-rose-500 flex-shrink-0" />}
+          {toast.tipo === 'info' && <Info className="h-4 w-4 text-[#00A8FF] flex-shrink-0" />}
           <span className="flex-1">{toast.texto}</span>
           <button
             onClick={() => setToast(null)}
-            className="text-slate-500 hover:text-slate-300 p-0.5 cursor-pointer"
+            className="text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 p-0.5 cursor-pointer"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -278,6 +302,8 @@ export function App() {
         onLogout={handleLogout}
         systemStatus={systemStatus}
         unreadAlertsCount={unreadAlertsCount}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       {/* Conteúdo Principal */}
@@ -347,13 +373,13 @@ export function App() {
       </main>
 
       {/* Rodapé Institucional */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 bg-white dark:border-slate-800/80 dark:bg-[#0F172A] py-4 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>SiSGO - SafeONG &copy; {new Date().getFullYear()} • Gestão Financeira Segura &amp; Auditoria</span>
           <div className="flex items-center gap-3 text-[11px] text-slate-500">
             <span>Stack: Node.js, Express, Prisma, SQLite, React 19, Tailwind</span>
             <span>•</span>
-            <span className="text-emerald-500/80 font-mono">RBAC Enforced</span>
+            <span className="text-[#2EC4B6] font-mono font-semibold">RBAC Enforced</span>
           </div>
         </div>
       </footer>

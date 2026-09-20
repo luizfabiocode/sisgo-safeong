@@ -106,3 +106,5 @@ export interface SystemStatus {
 }
 
 export type NavTab = 'dashboard' | 'doacoes' | 'alertas' | 'auditoria' | 'usuarios';
+
+export type ThemeMode = 'light' | 'dark';
